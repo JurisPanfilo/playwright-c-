@@ -22,6 +22,6 @@ jobs:
     - name: Upload test artifact
       uses: actions/upload-artifact@v3
       with:
-        name: bin/Debug/net8.0/playwright-traces
-        path: test-results
+        name: playwright-traces
+        path: bin/Debug/net8.0/test-results
     
