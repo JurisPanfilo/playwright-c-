@@ -10,9 +10,6 @@ public class LoginPage
     private readonly ILocator _inputPasssword;
     private readonly ILocator _buttonLogin;
     
-    //Yuryeee
-    //Huligan123!
-    
     public LoginPage(IPage page)
     {
         _page = page;
