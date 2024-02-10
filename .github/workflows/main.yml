@@ -8,6 +8,9 @@ jobs:
   test:
     timeout-minutes: 60
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        browser: [chromium, msedge] # Define the browser options
     steps:
     - uses: actions/checkout@v3
     - name: Setup dotnet
@@ -18,10 +21,14 @@ jobs:
     - name: Ensure browsers are installed
       run: pwsh bin/Debug/net8.0/playwright.ps1 install --with-deps
     - name: Run your tests
-      run: dotnet test
+      run: |
+        if [ "${{ matrix.browser }}" == "chromium" ]; then
+          dotnet test --settings chromium.runsettings
+        elif [ "${{ matrix.browser }}" == "msedge" ]; then
+          dotnet test --settings msedge.runsettings
+        fi
     - name: Upload test artifact
       uses: actions/upload-artifact@v3
       with:
         name: playwright-traces
         path: bin/Debug/net8.0/test-results
-    
