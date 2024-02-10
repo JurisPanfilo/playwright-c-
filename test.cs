@@ -15,7 +15,7 @@ public class MyTest : PageTest
     {
         await Context.Tracing.StartAsync(new()
         {
-            Title = TestContext.CurrentContext.Test.ClassName + "." + TestContext.CurrentContext.Test.Name,
+            Title = "playwright-traces",
             Screenshots = true,
             Snapshots = true,
             Sources = true
@@ -31,7 +31,7 @@ public class MyTest : PageTest
         {
             Path = Path.Combine(
                 TestContext.CurrentContext.WorkDirectory,
-                "playwright-traces",
+                "test-results",
                 $"{TestContext.CurrentContext.Test.ClassName}.{TestContext.CurrentContext.Test.Name}.zip"
             )
         });
