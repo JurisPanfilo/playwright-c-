@@ -4,6 +4,11 @@ on:
     branches: [ main, master ]
   pull_request:
     branches: [ main, master ]
+  workflow_dispatch: # Enable manual triggering
+    inputs:
+      browser:
+        description: 'Choose browser (chromium, msedge)'
+        required: true
 jobs:
   test:
     timeout-minutes: 60
@@ -18,10 +23,14 @@ jobs:
     - name: Ensure browsers are installed
       run: pwsh bin/Debug/net8.0/playwright.ps1 install --with-deps
     - name: Run your tests
-      run: dotnet test
+      run: |
+        if [ "${{ github.event.inputs.browser }}" == "chromium" ]; then
+          dotnet test --settings chromium.runsettings
+        elif [ "${{ github.event.inputs.browser }}" == "msedge" ]; then
+          dotnet test --settings msedge.runsettings
+        fi
     - name: Upload test artifact
       uses: actions/upload-artifact@v3
       with:
-        name: bin/Debug/net8.0/playwright-traces
-        path: test-results
-    
+        name: playwright-traces
+        path: bin/Debug/net8.0/test-results
