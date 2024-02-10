@@ -38,19 +38,32 @@ public class MyTest : PageTest
     }
     
     [Test]
-    public async Task ShouldHaveTheCorrectSlogan()
+    public async Task LoginValidCredentials()
     {
         LoginPage loginPage = new LoginPage(Page);
         PageHeader pageHeader = new PageHeader(Page);
         
         await Page.GotoAsync("http://eaapp.somee.com/");
-        var title = await Page.TitleAsync();
-        Console.WriteLine("Title is: " + title);
-
+        
         await pageHeader.ClickLogin();
-        await loginPage.EnterCredentials("Yuryeee", "Hu");
+        await loginPage.EnterCredentials("Yury123", "Qwe123!");
         await loginPage.SubmitCredentials();
-        await Expect(pageHeader.LinkEmployeeList()).ToBeVisibleAsync();
+        await Expect(pageHeader.LinkLogOff()).ToBeVisibleAsync();
+        await Expect(pageHeader.LinkEmployeeList2()).ToBeVisibleAsync();
+    }
+    
+    [Test]
+    public async Task LoginValidCredentialsFailure()
+    {
+        LoginPage loginPage = new LoginPage(Page);
+        PageHeader pageHeader = new PageHeader(Page);
+        
+        await Page.GotoAsync("http://eaapp.somee.com/");
+        
+        await pageHeader.ClickLogin();
+        await loginPage.EnterCredentials("xxx", "xxx");
+        await loginPage.SubmitCredentials();
+        await Expect(pageHeader.LinkLogOff()).ToBeVisibleAsync();
         await Expect(pageHeader.LinkEmployeeList2()).ToBeVisibleAsync();
     }
     
