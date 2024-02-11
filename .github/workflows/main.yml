@@ -30,6 +30,7 @@ jobs:
           dotnet test --settings msedge.runsettings
         fi
     - name: Upload test artifact
+      if: always()
       uses: actions/upload-artifact@v3
       with:
         name: playwright-traces
