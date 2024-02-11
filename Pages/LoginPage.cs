@@ -5,28 +5,23 @@ namespace PlaywrightTests.Pages;
 public class LoginPage
 {
     private IPage _page;
-    private readonly ILocator _lnkLogin;
     private readonly ILocator _inputUserName;
-    private readonly ILocator _inputPasssword;
+    private readonly ILocator _inputPassword;
     private readonly ILocator _buttonLogin;
     
     public LoginPage(IPage page)
     {
         _page = page;
-        _inputUserName = _page.Locator("#UserName");
-        _inputPasssword = _page.Locator("#Password");
-        _buttonLogin = _page.Locator("input[type=\"submit\"]");
+        _inputUserName = _page.Locator("#user-name");
+        _inputPassword = _page.Locator("#password");
+        _buttonLogin = _page.Locator("#login-button");
     }
     
-    public async Task SubmitCredentials()
-    {
-        await _buttonLogin.ClickAsync();
-    }
-    
-    public async Task EnterCredentials(string userName, string password)
+    public async Task SignIn(string userName, string password)
     {
         await _inputUserName.FillAsync(userName);
-        await _inputPasssword.FillAsync(password);
+        await _inputPassword.FillAsync(password);
+        await _buttonLogin.ClickAsync();
     }
     
     

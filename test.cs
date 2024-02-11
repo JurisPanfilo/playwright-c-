@@ -10,9 +10,18 @@ namespace PlaywrightTests;
 public class MyTest : PageTest
 {
     
+    private LoginPage loginPage;
+    private ProductsPage productsPage;
+    private CommonHeader commonHeader;
+    
     [SetUp]
     public async Task Setup()
     {
+        
+        loginPage = new LoginPage(Page);
+        productsPage = new ProductsPage(Page);
+        commonHeader = new CommonHeader(Page);
+        
         await Context.Tracing.StartAsync(new()
         {
             Title = "playwright-traces",
@@ -25,8 +34,6 @@ public class MyTest : PageTest
     [TearDown]
     public async Task TearDown()
     {
-        // This will produce e.g.:
-        // bin/Debug/net8.0/playwright-traces/PlaywrightTests.Tests.Test1.zip
         await Context.Tracing.StopAsync(new()
         {
             Path = Path.Combine(
@@ -38,33 +45,32 @@ public class MyTest : PageTest
     }
     
     [Test]
-    public async Task LoginValidCredentials()
+    public async Task AddProductToChart()
     {
-        LoginPage loginPage = new LoginPage(Page);
-        PageHeader pageHeader = new PageHeader(Page);
+        await Page.GotoAsync("https://www.saucedemo.com/");
         
-        await Page.GotoAsync("http://eaapp.somee.com/");
-        
-        await pageHeader.ClickLogin();
-        await loginPage.EnterCredentials("Yury123", "Qwe123!");
-        await loginPage.SubmitCredentials();
-        await Expect(pageHeader.LinkLogOff()).ToBeVisibleAsync();
-        await Expect(pageHeader.LinkEmployeeList2()).ToBeVisibleAsync();
+        await loginPage.SignIn("standard_user", "secret_sauce");
+        await Expect(productsPage.ProductsPageTitle()).ToBeVisibleAsync();
+
+        await productsPage.AddProduct("Sauce Labs Bolt T-Shirt");
+        await Expect(commonHeader.ShoppingCart()).ToContainTextAsync("1");
     }
     
     [Test]
-    public async Task LoginValidCredentialsFailure()
+    public async Task AddMultipleProducts()
     {
-        LoginPage loginPage = new LoginPage(Page);
-        PageHeader pageHeader = new PageHeader(Page);
+        await Page.GotoAsync("https://www.saucedemo.com/");
         
-        await Page.GotoAsync("http://eaapp.somee.com/");
-        
-        await pageHeader.ClickLogin();
-        await loginPage.EnterCredentials("xxx", "xxx");
-        await loginPage.SubmitCredentials();
-        await Expect(pageHeader.LinkLogOff()).ToBeVisibleAsync();
-        await Expect(pageHeader.LinkEmployeeList2()).ToBeVisibleAsync();
+        await loginPage.SignIn("standard_user", "secret_sauce");
+        await Expect(productsPage.ProductsPageTitle()).ToBeVisibleAsync();
+
+        await productsPage.AddProduct("Sauce Labs Bolt T-Shirt");
+        await productsPage.AddProduct("Sauce Labs Onesie");
+        await Expect(commonHeader.ShoppingCart()).ToContainTextAsync("2");
     }
+    
+
+
+    
     
 }
