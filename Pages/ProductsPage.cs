@@ -22,8 +22,4 @@ public class ProductsPage
     {
         return ButtonAddToChartByTitle(productName).ClickAsync();
     }
-    
-        
-        
-    
 }
