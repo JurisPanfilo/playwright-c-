@@ -1,11 +1,13 @@
 using Microsoft.Playwright;
 using Microsoft.Playwright.NUnit;
+using NUnit.Allure.Core;
 using PlaywrightTests.Pages;
 
 namespace PlaywrightTests;
 
 [Parallelizable(ParallelScope.Self)]
 [TestFixture]
+[AllureNUnit]
 public class PurchaseTest : PageTest
 {
     readonly string baseUrl = "https://www.saucedemo.com/";

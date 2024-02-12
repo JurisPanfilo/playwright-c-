@@ -31,3 +31,6 @@ pw-cache/
 *.suo
 *.user
 *.swp
+
+# Reporter files
+allure-results/

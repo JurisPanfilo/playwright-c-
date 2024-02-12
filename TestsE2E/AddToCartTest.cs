@@ -1,5 +1,8 @@
+using Allure.Net.Commons;
 using Microsoft.Playwright;
 using Microsoft.Playwright.NUnit;
+using NUnit.Allure.Attributes;
+using NUnit.Allure.Core;
 using NUnit.Framework.Constraints;
 using PlaywrightTests.Pages;
 
@@ -7,6 +10,7 @@ namespace PlaywrightTests;
 
 [Parallelizable(ParallelScope.Self)]
 [TestFixture]
+[AllureNUnit]
 public class AddToCart : PageTest
 {
     readonly string baseUrl = "https://www.saucedemo.com/";
@@ -35,6 +39,7 @@ public class AddToCart : PageTest
     }
     
     [Test]
+    [AllureSeverity(SeverityLevel.critical)]
     public async Task AddProductToChart()
     {
         await loginPage.SignIn("standard_user", "secret_sauce");

@@ -1,4 +1,5 @@
 using Microsoft.Playwright;
+using NUnit.Allure.Attributes;
 
 namespace PlaywrightTests.Pages;
 
@@ -17,6 +18,7 @@ public class LoginPage
         _buttonLogin = _page.Locator("#login-button");
     }
     
+    [AllureStep]
     public async Task SignIn(string userName, string password)
     {
         await _inputUserName.FillAsync(userName);
