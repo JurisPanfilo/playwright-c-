@@ -33,7 +33,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v3
         with:
-          name: playwright-traces
+          name: test-results
           path: bin/Debug/net8.0/playwright-traces
       - name: Upload Allure results
         if: always()

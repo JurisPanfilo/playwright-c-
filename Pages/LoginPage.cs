@@ -9,7 +9,7 @@ public class LoginPage
     private readonly ILocator _inputUserName;
     private readonly ILocator _inputPassword;
     private readonly ILocator _buttonLogin;
-    
+
     public LoginPage(IPage page)
     {
         _page = page;
@@ -17,7 +17,7 @@ public class LoginPage
         _inputPassword = _page.Locator("#password");
         _buttonLogin = _page.Locator("#login-button");
     }
-    
+
     [AllureStep]
     public async Task SignIn(string userName, string password)
     {
@@ -25,6 +25,4 @@ public class LoginPage
         await _inputPassword.FillAsync(password);
         await _buttonLogin.ClickAsync();
     }
-    
-    
 }

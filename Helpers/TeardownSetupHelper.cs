@@ -1,9 +1,9 @@
 using Allure.Net.Commons;
 using Microsoft.Playwright;
 
-namespace PlaywrightTests
+namespace PlaywrightTests.Helpers
 {
-    public class TeardownSetupHelper
+    public static class TeardownSetupHelper
     {
         public static async Task StartTracingAsync(IPage page)
         {
@@ -31,16 +31,15 @@ namespace PlaywrightTests
 
         public static async Task TakeScreenshotOnFailure(IPage page)
         {
-            
-                if (TestContext.CurrentContext.Result.Outcome.Status == NUnit.Framework.Interfaces.TestStatus.Failed)
-                {
-                    var screenshotPath = Path.Combine(TestContext.CurrentContext.WorkDirectory, $"failure-screenshots/{TestContext.CurrentContext.Test.MethodName}.png");
-                    await page.ScreenshotAsync(new PageScreenshotOptions { Path = screenshotPath });
-                    AllureLifecycle.Instance.AddAttachment("Screenshot", "image/png", screenshotPath);
-                }
-            
+            if (TestContext.CurrentContext.Result.Outcome.Status == NUnit.Framework.Interfaces.TestStatus.Failed)
+            {
+                var screenshotPath = Path.Combine(TestContext.CurrentContext.WorkDirectory,
+                    $"failure-screenshots/{TestContext.CurrentContext.Test.MethodName}.png");
+                await page.ScreenshotAsync(new PageScreenshotOptions { Path = screenshotPath });
+                AllureApi.AddAttachment("Screenshot", "image/png", screenshotPath);
+            }
         }
-        
+
         public static string? GetBaseUrl()
         {
             var environment = TestContext.Parameters["Environment"];
