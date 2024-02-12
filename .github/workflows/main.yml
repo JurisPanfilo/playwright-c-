@@ -1,4 +1,5 @@
 name: Playwright Tests
+
 on:
   push:
     branches: [ main, master ]
@@ -9,6 +10,7 @@ on:
       browser:
         description: 'Choose browser (chromium, msedge)'
         required: true
+
 jobs:
   test:
     timeout-minutes: 60
@@ -22,12 +24,17 @@ jobs:
       - run: dotnet build
       - name: Ensure browsers are installed
         run: pwsh bin/Debug/net8.0/playwright.ps1 install --with-deps
-      - name: Run your tests
+      - name: Run your tests based on chosen browser
         run: |
-          if [ "${{ github.event.inputs.browser }}" == "chromium" ]; then
+          if [ "${{ github.event_name }}" == "workflow_dispatch" ]; then
+            if [ "${{ github.event.inputs.browser }}" == "chromium" ]; then
+              dotnet test --settings chromium.runsettings
+            elif [ "${{ github.event.inputs.browser }}" == "msedge" ]; then
+              dotnet test --settings msedge.runsettings
+            fi
+          else
+            # Default to Chromium if not manually triggered
             dotnet test --settings chromium.runsettings
-          elif [ "${{ github.event.inputs.browser }}" == "msedge" ]; then
-            dotnet test --settings msedge.runsettings
           fi
       - name: Upload test artifacts
         if: always()
