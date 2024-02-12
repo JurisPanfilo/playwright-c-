@@ -22,7 +22,7 @@ namespace PlaywrightTests.Helpers
             {
                 Path = Path.Combine(
                     TestContext.CurrentContext.WorkDirectory,
-                    "test-results",
+                    "playwright-traces",
                     $"{TestContext.CurrentContext.Test.ClassName}.{TestContext.CurrentContext.Test.Name}.zip"
                 )
             });
