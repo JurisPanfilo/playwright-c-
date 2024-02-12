@@ -1,3 +1,4 @@
+using Allure.Net.Commons;
 using Microsoft.Playwright;
 
 namespace PlaywrightTests
@@ -25,6 +26,19 @@ namespace PlaywrightTests
                     $"{TestContext.CurrentContext.Test.ClassName}.{TestContext.CurrentContext.Test.Name}.zip"
                 )
             });
+            await TakeScreenshotOnFailure(page);
+        }
+
+        public static async Task TakeScreenshotOnFailure(IPage page)
+        {
+            
+                if (TestContext.CurrentContext.Result.Outcome.Status == NUnit.Framework.Interfaces.TestStatus.Failed)
+                {
+                    var screenshotPath = Path.Combine(TestContext.CurrentContext.WorkDirectory, $"failure-screenshots/{TestContext.CurrentContext.Test.MethodName}.png");
+                    await page.ScreenshotAsync(new PageScreenshotOptions { Path = screenshotPath });
+                    AllureLifecycle.Instance.AddAttachment("Screenshot", "image/png", screenshotPath);
+                }
+            
         }
         
         public static string? GetBaseUrl()
