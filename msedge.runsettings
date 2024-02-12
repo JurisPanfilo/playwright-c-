@@ -11,7 +11,7 @@
   
   <!-- Playwright settings -->
   <Playwright>
-    <BrowserName>msedge</BrowserName>
+    <BrowserName>chromium</BrowserName>
     <LaunchOptions>
       <Headless>false</Headless>
       <Channel>msedge</Channel>
