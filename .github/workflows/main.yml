@@ -66,6 +66,11 @@ jobs:
           touch .nojekyll
           git add .nojekyll
           git commit -m "Initialize gh-pages branch"
+          # Fetch the latest changes from the remote repository
+          git fetch origin gh-pages
+          # Merge changes into the local gh-pages branch
+          git merge origin/gh-pages
+          # Push the changes back to the remote repository
           git push origin gh-pages
       - name: Copy Allure report to gh-pages branch
         run: |
