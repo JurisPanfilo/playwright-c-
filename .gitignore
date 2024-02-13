@@ -1,0 +1,36 @@
+# Rider IDE files
+.idea/
+*.sln.iml
+
+# Rider user-specific files
+.idea/workspace.xml
+.idea/tasks.xml
+.idea/dictionaries
+.vs/
+
+# Build results
+bin/
+obj/
+
+# Playwright specific files
+.pw/
+pw/
+pw-cache/
+
+# Environment variables
+*.env
+
+# Logs and runtime data
+*.log
+*.pid
+*.seed
+*.pid.lock
+
+# User-specific files
+*.cache
+*.suo
+*.user
+*.swp
+
+# Reporter files
+allure-results/
