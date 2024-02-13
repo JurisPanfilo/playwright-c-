@@ -45,6 +45,7 @@ public class PurchaseTest : PageTest
     [Test]
     public async Task NavigationTest()
     {
+        
         await loginPage.SignIn("standard_user", "secret_sauce");
         await Expect(commonHeader.ShoppingCart()).ToBeVisibleAsync();
         await productsPage.AddProduct("Sauce Labs Bolt T-Shirt");
