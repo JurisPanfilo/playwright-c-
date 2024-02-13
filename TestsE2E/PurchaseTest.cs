@@ -2,6 +2,7 @@ using System.Text;
 using Allure.Net.Commons;
 using Microsoft.Playwright;
 using Microsoft.Playwright.NUnit;
+using NUnit.Allure.Attributes;
 using NUnit.Allure.Core;
 using NUnit.Framework.Interfaces;
 using PlaywrightTests.Helpers;
@@ -55,6 +56,24 @@ public class PurchaseTest : PageTest
         await commonHeader.HamburgerMenu().ClickAsync();
         await commonHeader.HamburgerMenuAllProducts().ClickAsync();
         await commonHeader.HamburgerMenu().ClickAsync();
+        await commonHeader.HamburgerMenuLogOut().ClickAsync();
+        await loginPage.SignIn("standard_user", "secret_sauce");
+    }
+    
+    [Test]
+    [AllureSeverity(SeverityLevel.minor)]
+    public async Task NavigationTestShouldFail()
+    {
+        
+        await loginPage.SignIn("standard_user", "secret_sauce");
+        await Expect(commonHeader.ShoppingCart()).ToBeVisibleAsync();
+        await productsPage.AddProduct("Sauce Labs Bolt T-Shirt");
+        await commonHeader.ShoppingCart().ClickAsync();
+        await yourCartPage.ButtonRemove().ClickAsync();
+        await yourCartPage.ButtonChechout().ClickAsync();
+        await commonHeader.HamburgerMenu().ClickAsync();
+        await commonHeader.HamburgerMenuAllProducts().ClickAsync();
+        // await commonHeader.HamburgerMenu().ClickAsync();
         await commonHeader.HamburgerMenuLogOut().ClickAsync();
         await loginPage.SignIn("standard_user", "secret_sauce");
     }
