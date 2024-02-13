@@ -55,8 +55,8 @@ jobs:
           fetch-depth: 0
       - name: Copy Allure results to gh-pages branch
         run: |
-          mkdir -p allure-report
-          cp -r allure-results/* allure-report/
+          mkdir -p allure-results
+          cp -r allure-results/* .
       - name: Commit and push changes to gh-pages
         run: |
           git config --global user.email "actions@github.com"
