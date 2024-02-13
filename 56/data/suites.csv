@@ -1,0 +1,5 @@
+"Status","Start Time","Stop Time","Duration in ms","Parent Suite","Suite","Sub Suite","Test Class","Test Method","Name","Description"
+"passed","Tue Feb 13 18:56:29 GMT 2024","Tue Feb 13 18:56:31 GMT 2024","2010","","","","AddToCart","AddMultipleProducts","AddMultipleProducts",""
+"passed","Tue Feb 13 18:56:29 GMT 2024","Tue Feb 13 18:56:32 GMT 2024","3489","","","","PurchaseTest","NavigationTest","NavigationTest",""
+"passed","Tue Feb 13 18:56:31 GMT 2024","Tue Feb 13 18:56:32 GMT 2024","961","","","","AddToCart","AddProductToChart","AddProductToChart",""
+"failed","Tue Feb 13 18:56:32 GMT 2024","Tue Feb 13 18:57:04 GMT 2024","31639","","","","PurchaseTest","NavigationTestShouldFail","NavigationTestShouldFail",""
