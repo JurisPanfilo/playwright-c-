@@ -55,17 +55,8 @@ jobs:
           sudo ln -s /opt/allure-2.14.0/bin/allure /usr/bin/allure
       - name: Generate Allure report
         run: allure generate allure-results --clean -o allure-report
-      - name: List contents of allure-results directory
-        run: ls -l allure-results
-      - name: List contents of parent directory
-        run: ls -l "$(dirname allure-results)"
-      - name: Checkout gh-pages branch
-        uses: actions/checkout@v3
-        with:
-          ref: gh-pages
-          fetch-depth: 0
-      - name: List contents of allure-results directory in branch
-        run: ls -l allure-results
+      - name: List contents of allure-report directory
+        run: ls -l allure-report
       - name: Copy Allure report to gh-pages branch
         run: cp -r allure-report/* .
       - name: Commit and push changes to gh-pages
